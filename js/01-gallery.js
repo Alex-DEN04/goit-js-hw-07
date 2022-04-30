@@ -36,9 +36,9 @@ function createGallery(items) {
 function onImageClick(event) {
     event.preventDefault();
     const largeImage = event.target.dataset.source;
-
+    const description = event.target.alt;
     instance = basicLightbox.create(`
-        <img src="${largeImage}"/>
+        <img src="${largeImage}" alt="${description}"/>
     `);
     instance.show();
 }
