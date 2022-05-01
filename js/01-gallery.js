@@ -40,8 +40,8 @@ function onImageClick(event) {
         instance = basicLightbox.create(`
         <img src="${largeImage}" alt="${description}"/>
     `, {
-		onShow: (instance) => document.addEventListener("keydown", onEscKeyPress),
-		onClose: (instance) => document.removeEventListener("keydown", onEscKeyPress),
+		onShow: () => document.addEventListener("keydown", onEscKeyPress),
+		onClose: () => document.removeEventListener("keydown", onEscKeyPress),
 	});
         instance.show();
     }
