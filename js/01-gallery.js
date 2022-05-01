@@ -12,7 +12,6 @@ galleryContainer.insertAdjacentHTML("afterbegin", markup);
 
 galleryContainer.addEventListener("click", onImageClick);
 
-document.addEventListener("keydown", onEscKeyPress);
 
 function createGallery(items) {
     return items.map((item) => {
@@ -37,18 +36,20 @@ function onImageClick(event) {
     event.preventDefault();
     const largeImage = event.target.dataset.source;
     const description = event.target.alt;
-    instance = basicLightbox.create(`
+    if (largeImage) {
+        instance = basicLightbox.create(`
         <img src="${largeImage}" alt="${description}"/>
-    `);
-    instance.show();
+    `, {
+		onShow: (instance) => document.addEventListener("keydown", onEscKeyPress),
+		onClose: (instance) => document.removeEventListener("keydown", onEscKeyPress),
+	});
+        instance.show();
+    }
 }
 
 function onEscKeyPress(event) {
      event.preventDefault();
-    if (event.code === "Escape") {
+    if (event.code === "Escape")
         instance.close();
-        return;
-    }
-   document.removeEventListener("keydown", onEscKeyPress);
 }
    
